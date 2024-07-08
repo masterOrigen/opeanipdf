@@ -43,18 +43,24 @@ def main():
         pregunta = st.text_input("Escribe tu pregunta")
 
         if pregunta:
-            # Llamar a OpenAI para obtener la respuesta
-            respuesta = openai.Completion.create(
-                model="text-davinci-003",
-                prompt=texto_pdf + "\n\nPregunta: " + pregunta + "\nRespuesta:",
-                max_tokens=50
-            )
+            try:
+                # Llamar a OpenAI para obtener la respuesta
+                respuesta = openai.Answer.create(
+                    model="text-davinci-003",
+                    question=pregunta,
+                    documents=[texto_pdf],
+                    max_tokens=50
+                )
 
-            st.subheader("Respuesta de OpenAI:")
-            st.write(respuesta['choices'][0]['text'])
+                st.subheader("Respuesta de OpenAI:")
+                st.write(respuesta['answers'][0])
+
+            except Exception as e:
+                st.error(f"Error al procesar la consulta a OpenAI: {str(e)}")
 
 if __name__ == '__main__':
     main()
+
 
 
 
