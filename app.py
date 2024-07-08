@@ -45,22 +45,21 @@ def main():
         if pregunta:
             try:
                 # Llamar a OpenAI para obtener la respuesta
-                respuesta = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[
-                        {"role": "system", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": pregunta}
-                    ]
+                respuesta = openai.Completion.create(
+                    model="text-davinci-003",
+                    prompt=texto_pdf + "\n\nPregunta: " + pregunta + "\nRespuesta:",
+                    max_tokens=50
                 )
 
                 st.subheader("Respuesta de OpenAI:")
-                st.write(respuesta['choices'][0]['message']['content'])
+                st.write(respuesta['choices'][0]['text'])
 
             except Exception as e:
                 st.error(f"Error al procesar la consulta a OpenAI: {str(e)}")
 
 if __name__ == '__main__':
     main()
+
 
 
 
