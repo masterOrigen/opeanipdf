@@ -44,18 +44,19 @@ def main():
 
         if pregunta:
             # Llamar a OpenAI para obtener la respuesta
-            respuesta = openai.Answer.create(
-                model="text-davinci-003",
-                question=pregunta,
-                documents=[texto_pdf],
-                max_tokens=50
+            respuesta = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=pregunta,
+                max_tokens=50,
+                context=texto_pdf
             )
 
             st.subheader("Respuesta de OpenAI:")
-            st.write(respuesta['answers'][0])
+            st.write(respuesta['choices'][0]['text'])
 
 if __name__ == '__main__':
     main()
+
 
 
 
