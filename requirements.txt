@@ -1,5 +1,6 @@
-streamlit
+streamlit==0.91.1
 PyPDF2==1.26.0
-openai
-python-dotenv
+openai>=1.0.0
+python-dotenv==0.19.2
+
 
