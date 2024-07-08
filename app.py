@@ -1,9 +1,14 @@
+import os
 import streamlit as st
 import PyPDF2
 import openai
+from dotenv import load_dotenv
 
-# Configurar OpenAI (necesitarás una API Key válida)
-openai.api_key = 'tu_api_key_de_openai'
+# Cargar las variables de entorno desde el archivo .env
+load_dotenv()
+
+# Obtener la clave API de OpenAI desde las variables de entorno
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Función para extraer texto de un archivo PDF
 def extraer_texto_pdf(archivo):
@@ -48,3 +53,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
