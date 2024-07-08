@@ -12,10 +12,12 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Función para extraer texto de un archivo PDF
 def extraer_texto_pdf(archivo):
-    pdf_reader = PyPDF2.PdfFileReader(archivo)
     texto = ''
-    for page_num in range(pdf_reader.numPages):
-        texto += pdf_reader.getPage(page_num).extract_text()
+    with open(archivo, 'rb') as f:
+        pdf_reader = PyPDF2.PdfReader(f)
+        for page_num in range(len(pdf_reader.pages)):
+            page = pdf_reader.pages[page_num]
+            texto += page.extract_text()
     return texto
 
 # Configurar la interfaz de usuario con Streamlit
@@ -53,4 +55,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
