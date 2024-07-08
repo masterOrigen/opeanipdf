@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import io
 import PyPDF2
 import openai
 from dotenv import load_dotenv
@@ -13,7 +14,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 # Función para extraer texto de un archivo PDF
 def extraer_texto_pdf(archivo):
     texto = ''
-    with open(archivo, 'rb') as f:
+    with io.BytesIO(archivo.read()) as f:
         pdf_reader = PyPDF2.PdfReader(f)
         for page_num in range(len(pdf_reader.pages)):
             page = pdf_reader.pages[page_num]
@@ -55,5 +56,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
